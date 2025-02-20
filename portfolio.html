@@ -205,6 +205,10 @@
             padding: 2rem 0;
             border-bottom: 2px solid var(--secondary-color);
             position: relative;
+            height: 320px;  /* Фиксированная высота вместо min-height */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;  /* Выравнивание содержимого по верху */
         }
 
         .header::before {
@@ -215,6 +219,7 @@
         .header__subtitle {
             overflow: hidden;
             position: relative;
+            margin-bottom: 1rem;  /* Базовый отступ */
         }
 
         .header__title {
@@ -242,7 +247,7 @@
 
         .header__subtitle {
             font-size: 4rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2.5rem;  /* Увеличенный отступ после Technical Artist */
             color: var(--text-color);
             letter-spacing: 8px;
             display: inline-block;
@@ -469,13 +474,13 @@
         */
 
         .contact-details {
-            text-align: left;
+            text-align: center;
             margin-bottom: 2rem;
+            margin-top: 0;  /* Убираем отступ сверху */
             font-family: 'Press Start 2P', system-ui;
             font-size: 1rem;
             line-height: 1.8;
             color: var(--text-color);
-            position: relative;
         }
 
         .contact-details p {
@@ -835,8 +840,9 @@
 
         :root[data-style="playstation"] .header {
             text-align: center;
+            height: 320px;  /* Та же фиксированная высота */
             border-bottom: 1px solid var(--border-color);
-            position: relative; /* Для позиционирования псевдоэлемента */
+            position: relative;
         }
 
         :root[data-style="playstation"] .header::after {
@@ -880,11 +886,12 @@
         }
 
         :root[data-style="playstation"] .header__subtitle {
-            font-family: 'Roboto Mono', monospace !important;
-            font-weight: normal;
+            font-family: 'Oswald', sans-serif !important;
+            font-weight: 700;  /* Делаем шрифт жирным для большей выразительности */
             letter-spacing: 2px;
-            font-size: 4rem;  /* Увеличиваем размер с 3.5rem до 4rem */
+            font-size: 4rem;
             text-transform: uppercase;
+            line-height: 0.9;  /* Уменьшаем межстрочный интервал */
         }
 
         :root[data-style="playstation"] .menu-item {
@@ -925,25 +932,39 @@
 
         /* PlayStation-specific стили */
         :root[data-style="playstation"] .contact-details {
-            text-align: center; /* Центрируем текст */
+            text-align: center;
             margin-bottom: 2rem;
+            margin-top: 0;  /* Убираем отступ сверху */
             font-family: 'Press Start 2P', system-ui;
             font-size: 1rem;
             line-height: 1.8;
             color: var(--text-color);
         }
 
-        :root[data-style="playstation"] .contact-details p {
-            margin: 0.5rem 0;
+        /* Dossier стили */
+        :root[data-style="dossier"] .header {
+            text-align: left;  /* Выравнивание по левому краю */
+            padding-left: 2rem;  /* Добавляем отступ слева */
+            padding-top: 1rem;   /* Добавляем отступ сверху */
         }
 
-        :root[data-style="playstation"] .contact-details a {
-            color: var(--text-color);
-            text-decoration: none;
+        :root[data-style="dossier"] .header__title,
+        :root[data-style="dossier"] .header__subtitle {
+            text-align: left;  /* Явное указание выравнивания для заголовков */
+            margin-left: 0;    /* Убираем автоматические отступы */
+            margin-right: auto;
+            padding-left: 0;   /* Убираем внутренние отступы */
+            width: 100%;       /* Задаем полную ширину */
+            display: block;    /* Меняем способ отображения */
+            line-height: 1.2;  /* Добавляем межстрочный интервал */
         }
 
-        :root[data-style="playstation"] .contact-details a:hover {
-            color: var(--secondary-color);
+        :root[data-style="dossier"] .contact-details {
+            text-align: left;  /* Выравнивание контактов по левому краю */
+            margin-left: 0;    /* Убираем автоматические отступы */
+            margin-right: auto;
+            padding-left: 0;   /* Убираем внутренние отступы */
+            margin-top: 1rem;  /* Добавляем отступ сверху */
         }
 
         /* PlayStation-specific стили с повышенной специфичностью */
@@ -1321,13 +1342,13 @@
                 <div class="contact-info" style="flex: 1;">
                     <div class="contact-info__item">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1 .3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1zM19 12h2c0-4.9-4-9-9-9v2c3.9 0 7 3.1 7 7zm-4 0h2c0-2.8-2.2-5-5-5v2c1.7 0 3 1.3 3 3z"/>
+                            <path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1 .3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1-1v-3.5c0-.6-.4-1-1-1zM19 12h2c0-4.9-4-9-9-9v2c3.9 0 7 3.1 7 7zm-4 0h2c0-2.8-2.2-5-5-5v2c1.7 0 3 1.3 3 3z"/>
                         </svg>
                         <a href="tel:+46762293698">+46 76-229 36 98</a>
                     </div>
                     <div class="contact-info__item">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M17.5 12c-2.757 0-5 2.243-5 5 0 1.105.672 2.057 1.651 2.631C15.051 21.233 16.105 22 17.5 22c3.314 0 6-2.686 6-6 0-2.686-2.686-5-6-5zm-7 10c-1.105 0-2.057-.672-2.631-1.651C7.233 19.051 7 18.105 7 17.5c0-1.105.672-2.057 1.651-2.631C10.051 12.233 11.105 12 12.5 12c1.395 0 2.449.233 3.449 0.717C16.051 12.672 16.672 13.624 17.249 14.651C18.233 15.672 19 16.624 19 17.5c0 1.105-.672 2.057-1.651 2.631C16.949 21.233 15.895 22 14.5 22c-1.395 0-2.449-.233-3.449-.717z"/>
+                            <path d="M17.5 12c-2.757 0-5 2.243-5 5 0 1.105.672 2.057 1.651C15.051 21.233 16.105 22 17.5 22c3.314 0 6-2.686 6-6 0-2.686-2.686-5-6-5zm-7 10c-1.105 0-2.057-.672-2.631-1.651C7.233 19.051 7 18.105 7 17.5c0-1.105.672-2.057 1.651-2.631C10.051 12.233 11.105 12 12.5 12c1.395 0 2.449.233 3.449 0.717C16.051 12.672 16.672 13.624 17.249 14.651C18.233 15.672 19 16.624 19 17.5c0 1.105-.672 2.057-1.651 2.631C16.949 21.233 15.895 22 14.5 22c-1.395 0-2.449-.233-3.449-.717z"/>
                         </svg>
                         <a href="https://t.me/Shcherbak_Bogdan" target="_blank">t.me/Shcherbak_Bogdan</a>
                     </div>
