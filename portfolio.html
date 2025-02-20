@@ -876,7 +876,15 @@
         :root[data-style="playstation"] .header__title {
             font-family: 'Press Start 2P', system-ui !important; /* Повышаем приоритет */
             font-weight: normal; /* Сбрасываем жирность */
-            letter-spacing: normal; /* Сбрасываем межбуквенное расстояние */
+            letter-spacing: -1px; /* Уменьшаем межбуквенное расстояние */
+        }
+
+        :root[data-style="playstation"] .header__subtitle {
+            font-family: 'Roboto Mono', monospace !important;
+            font-weight: normal;
+            letter-spacing: 2px;
+            font-size: 4rem;  /* Увеличиваем размер с 3.5rem до 4rem */
+            text-transform: uppercase;
         }
 
         :root[data-style="playstation"] .menu-item {
@@ -907,7 +915,7 @@
             color: var(--secondary-color);
             text-shadow: 2px 2px 4px rgba(33, 150, 243, 0.3);
             font-weight: normal;
-            letter-spacing: normal;
+            letter-spacing: -1px;
         }
 
         :root[data-style="playstation"] .contact-info__item:hover {
@@ -943,15 +951,6 @@
         :root[data-style="playstation"] .project-card__title {
             font-family: 'Press Start 2P', system-ui !important;
             font-weight: normal;
-            letter-spacing: normal;
-            /* Уменьшаем межбуквенное расстояние */
-            letter-spacing: -1px;
-        }
-
-        :root[data-style="playstation"] .header__subtitle {
-            font-family: 'Press Start 2P', system-ui !important;
-            font-weight: normal;
-            /* Уменьшаем межбуквенное расстояние */
             letter-spacing: -1px;
         }
 
@@ -997,7 +996,7 @@
             overflow: hidden;
             margin: 0 auto;
             letter-spacing: 3px;
-            animation: revealText 4s linear forwards;
+            animation: revealText 2s linear forwards;
         }
 
         :root[data-style="dossier"] .header__subtitle {
@@ -1015,7 +1014,7 @@
             width: 100%;
             height: 100%;
             background: var(--background-color);
-            animation: glitchEffect 4s linear forwards;
+            animation: glitchEffect 2s linear forwards;
             animation-iteration-count: 1;
             opacity: 1;
         }
