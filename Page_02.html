@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Page 01</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'TeX Gyre Adventor';
+            src: url('https://cdn.jsdelivr.net/npm/@fontsource/tex-gyre-adventor@4.5.0/files/tex-gyre-adventor-latin-400-normal.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'TeX Gyre Adventor';
+            src: url('https://cdn.jsdelivr.net/npm/@fontsource/tex-gyre-adventor@4.5.0/files/tex-gyre-adventor-latin-700-normal.woff2') format('woff2');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Exwayer';
+            src: url('path/to/Exwayer.woff2') format('woff2'),
+                 url('path/to/Exwayer.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'SDGlitch';
+            src: url('SDGlitch_Demo.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            /* Dark theme (default) */
+            --primary-color: #1a1a1a;
+            --secondary-color: #cc0022;
+            --text-color: #ffffff;
+            --background-color: #000000;
+            --card-background: rgba(26, 26, 26, 0.95);
+            --hover-color: #990019;
+            --border-color: rgba(204, 0, 34, 0.3);
+            --glitch-shadow: #cc0022;
+        }
+
+        :root[data-theme="light"] {
+            /* Light theme */
+            --primary-color: #f5f5f5;
+            --secondary-color: #cc0022;
+            --text-color: #1a1a1a;
+            --background-color: #ffffff;
+            --card-background: rgba(245, 245, 245, 0.95);
+            --hover-color: #ff1a1a;
+            --border-color: rgba(204, 0, 34, 0.3);
+            --glitch-shadow: #cc0022;
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            padding: 5px 10px;
+            background: var(--card-background);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            font-family: inherit;
+            width: 160px;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--secondary-color);
+        }
+
+        /* Adjust background patterns for light theme */
+        [data-theme="light"] body {
+            background-image: 
+                linear-gradient(0deg, rgba(255,255,255,0.95) 0%, rgba(245,245,245,0.5) 100%),
+                repeating-linear-gradient(45deg, 
+                    rgba(204, 0, 34, 0.1) 0px,
+                    rgba(204, 0, 34, 0.1) 2px,
+                    transparent 2px,
+                    transparent 20px
+                );
+        }
+
+        [data-theme="light"] .container::after {
+            opacity: 0.05;
+            mix-blend-mode: multiply;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* Убираем общие стили для заголовков */
+        .header__title,
+        .header__subtitle,
+        .menu-item__text,
+        .project-card__title {
+            font-family: 'Oswald', sans-serif;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            text-transform: uppercase;
+            background-image: 
+                linear-gradient(0deg, rgba(0,0,0,0.95) 0%, rgba(26,26,26,0.5) 100%),
+                repeating-linear-gradient(45deg, 
+                    rgba(204, 0, 34, 0.1) 0px,    /* Увеличена прозрачность с 0.05 до 0.1 */
+                    rgba(204, 0, 34, 0.1) 2px,    /* Увеличена толщина линии с 1px до 2px */
+                    transparent 2px,               /* Соответствующее изменение */
+                    transparent 20px              /* Увеличен интервал с 10px до 20px */
+                );
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+            position: relative;
+        }
+
+        .header {
+            text-align: left;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid var(--secondary-color);
+            position: relative;
+        }
+
+        .header::before {
+            display: none;
+        }
+
+        .header__title,
+        .header__subtitle {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header__title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            letter-spacing: 8px;
+            display: inline-block;
+        }
+
+        .header__title::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px;
+            text-shadow: -2px 0 var(--glitch-shadow);
+            top: 0;
+            color: var(--text-color);
+            background: var(--background-color);
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0);
+            animation: noise-anim-1 2s infinite linear alternate-reverse;
+            opacity: 0.8;
+            text-shadow: -3px 0 var(--glitch-shadow);
+        }
+
+        .header__subtitle {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            letter-spacing: 8px;
+            display: inline-block;
+        }
+
+        .header__subtitle::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px;
+            text-shadow: -2px 0 var(--glitch-shadow);
+            top: 0;
+            color: var(--text-color);
+            background: var(--background-color);
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0);
+            animation: noise-anim-2 2.5s infinite linear alternate-reverse;
+            opacity: 0.8;
+            text-shadow: -3px 0 var(--glitch-shadow);
+        }
+
+        .header__title::before,
+        .header__subtitle::before {
+            content: attr(data-text);
+            position: absolute;
+            left: -2px;
+            text-shadow: 2px 0 var(--glitch-shadow);
+            top: 0;
+            color: var(--text-color);
+            background: var(--background-color);
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0);
+            animation: noise-anim-1 3s infinite linear alternate-reverse;
+            opacity: 0.5;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .menu-item {
+            background: transparent;
+            border-left: 2px solid var(--secondary-color);
+            margin-bottom: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Добавляем эффекты при наведении */
+        .menu-item:hover {
+            background: var(--primary-color);
+            transform: translateX(10px);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .menu-item:hover .menu-item__text::before,
+        .menu-item:hover .menu-item__text::after {
+            opacity: 1;
+            color: var(--secondary-color);
+        }
+
+        .menu-item:hover .menu-item__text {
+            color: var(--secondary-color);
+        }
+
+        .menu-item__icon {
+            color: var(--secondary-color);
+            opacity: 0.5;
+        }
+
+        .menu-item__text {
+            position: relative;
+            padding: 0 30px; /* Немного уменьшаем padding */
+            display: inline-block;
+        }
+
+        .menu-item__text::before,
+        .menu-item__text::after {
+            content: '// '; /* Один пробел после слешей */
+            position: absolute;
+            color: var(--secondary-color);
+            opacity: 0.5;
+        }
+
+        .menu-item__text::before {
+            left: 0;
+            content: '// '; /* Один пробел после слешей */
+        }
+
+        .menu-item__text::after {
+            right: 0;
+            content: ' //'; /* Один пробел перед слешами */
+        }
+
+        .project-card {
+            background-color: var(--card-background);
+            border-left: 4px solid var(--secondary-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                280px circle at var(--x, 50%) var(--y, 50%),
+                rgba(204, 0, 34, 0.12),
+                transparent 45%
+            );
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card__title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            letter-spacing: 4px;
+            position: relative;
+        }
+
+        .project-card__title::before {
+            display: none;
+        }
+
+        .project-card__video {
+            width: 100%;
+            margin-bottom: 1.5rem;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card__video iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-card__description {
+            margin: 0;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .contact-info {
+            margin-top: 3rem;
+        }
+
+        .contact-info__item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .contact-info__item:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .contact-info__item a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .contact-info__item svg {
+            width: 20px;  /* Фиксированная ширина */
+            height: 20px; /* Фиксированная высота */
+            min-width: 20px; /* Предотвращает сжатие */
+            margin-right: 15px; /* Отступ от текста */
+        }
+
+        @media (max-width: 768px) {
+            .header__title {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+
+            .project-card__title {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Styles for future full-width title image
+        .title-image {
+            width: 100vw;
+            height: auto;
+            margin-bottom: 2rem;
+            display: block;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        */
+
+        .contact-details {
+            text-align: left;
+            margin-bottom: 2rem;
+            font-family: 'Press Start 2P', system-ui;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .contact-details p {
+            margin: 0.5rem 0;
+        }
+
+        .contact-details a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .contact-details a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Удаляем вертикальную полоску у контактной информации */
+        .contact-details::before {
+            display: none;  /* или просто удалить весь блок стилей */
+        }
+
+        @keyframes blink {
+            display: none;  /* или удалить, если не используется где-то ещё */
+        }
+
+        @keyframes noise-anim-1 {
+            0% { clip: rect(31px, 9999px, 28px, 0); text-shadow: 3px 0 var(--glitch-shadow); }
+            5% { clip: rect(70px, 9999px, 19px, 0); text-shadow: -3px 0 var(--glitch-shadow); }
+            10% { clip: rect(92px, 9999px, 13px, 0); text-shadow: 3px 0 var(--glitch-shadow); }
+            15% { clip: rect(45px, 9999px, 43px, 0); text-shadow: -3px 0 var(--glitch-shadow); }
+            20% { clip: rect(64px, 9999px, 78px, 0); text-shadow: 3px 0 var(--glitch-shadow); }
+            25% { clip: rect(31px, 9999px, 18px, 0); text-shadow: -3px 0 var(--glitch-shadow); }
+            30% { clip: rect(87px, 9999px, 94px, 0); text-shadow: 3px 0 var(--glitch-shadow); }
+            100% { clip: rect(91px, 9999px, 83px, 0); text-shadow: -3px 0 var(--glitch-shadow); }
+        }
+
+        @keyframes noise-anim-2 {
+            0% { clip: rect(15px, 9999px, 42px, 0); text-shadow: -2px 0 var(--glitch-shadow); }
+            10% { clip: rect(83px, 9999px, 35px, 0); text-shadow: 2px 0 var(--glitch-shadow); }
+            20% { clip: rect(25px, 9999px, 56px, 0); text-shadow: -2px 0 var(--glitch-shadow); }
+            30% { clip: rect(72px, 9999px, 21px, 0); text-shadow: 2px 0 var(--glitch-shadow); }
+            40% { clip: rect(51px, 9999px, 37px, 0); text-shadow: -2px 0 var(--glitch-shadow); }
+            50% { clip: rect(92px, 9999px, 48px, 0); text-shadow: 2px 0 var(--glitch-shadow); }
+            100% { clip: rect(84px, 9999px, 61px, 0); text-shadow: -2px 0 var(--glitch-shadow); }
+        }
+
+        /* Усиливаем эффект помех на фон */
+        .container::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.08;  /* Вернули прежнее значение */
+            pointer-events: none;
+            mix-blend-mode: overlay;  /* Вернули прежний режим наложения */
+        }
+
+        /* Удаляем эффект сканирования */
+        body::after {
+            display: none;  /* или просто удалить весь блок */
+        }
+
+        @keyframes scanning {
+            display: none;  /* или просто удалить весь блок */
+        }
+
+        /* Добавляем декоративные элементы для карточек */
+        .project-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: 
+                linear-gradient(45deg, transparent 48%, var(--secondary-color) 48%, var(--secondary-color) 52%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, var(--secondary-color) 48%, var(--secondary-color) 52%, transparent 52%);
+            opacity: 0.1;
+        }
+
+        /* Удаляем кнопку-гамбургер */
+        .menu-toggle {
+            display: none;  /* или удалить полностью */
+        }
+
+        /* Добавляем триггер-зону для наведения */
+        .menu-trigger {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 40px;  /* Увеличена ширина с 20px до 40px */
+            height: 100vh;
+            z-index: 999;
+        }
+
+        /* Обновляем стили боковой панели */
+        .side-menu {
+            position: fixed;
+            left: -200px;
+            top: 0;
+            width: 200px;
+            height: 100vh;
+            background: var(--card-background);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            border-right: 1px solid var(--border-color);
+        }
+
+        /* Показываем меню при наведении на триггер или само меню */
+        .menu-trigger:hover + .side-menu,
+        .side-menu:hover {
+            left: 0;
+        }
+
+        /* Удаляем все стили, связанные со сдвигом */
+        .container.shifted {
+            margin-left: 0;
+        }
+
+        /* Стили для выпадающего списка */
+        .style-select {
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1em;
+            padding-right: 2.5em;
+            text-align: center;
+            text-align-last: center;
+            color: var(--text-color) !important;
+        }
+
+        /* Дополнительные правила для разных браузеров */
+        .style-select::-ms-expand {
+            display: none;
+        }
+
+        .style-select option {
+            background: var(--card-background);
+            color: var(--text-color);
+        }
+
+        /* Убираем outline при фокусе */
+        .style-select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        /* Dossier - Dark theme */
+        :root[data-style="dossier"][data-theme="dark"] {
+            --primary-color: #1a1a1a;
+            --secondary-color: #cc0022;
+            --text-color: #ffffff;
+            --background-color: #000000;
+            --card-background: rgba(26, 26, 26, 0.95);
+            --border-color: #333333;
+            --glitch-shadow: #cc0022;
+        }
+
+        /* Dossier - Light theme */
+        :root[data-style="dossier"][data-theme="light"] {
+            --primary-color: #ffffff;
+            --secondary-color: #cc0022;
+            --text-color: #000000;
+            --background-color: #ffffff;
+            --card-background: rgba(255, 255, 255, 0.95);
+            --border-color: #cc0022;
+            --glitch-shadow: #cc0022;
+        }
+
+        /* PlayStation - Dark theme */
+        :root[data-style="playstation"][data-theme="dark"] {
+            --primary-color: #1f1f1f;
+            --secondary-color: #2196f3;  /* Вернули синий вместо золотого */
+            --text-color: #e0e0e0;
+            --background-color: #121212;
+            --card-background: rgba(255, 255, 255, 0.05);
+            --hover-color: #29b6f6;      /* Вернули светло-синий */
+            --border-color: rgba(255, 255, 255, 0.1);
+            --cube-color: rgba(33, 150, 243, 0.1);  /* Вернули синий */
+        }
+
+        /* Обновляем стили для карточек в темной теме */
+        :root[data-style="playstation"][data-theme="dark"] .project-card:hover {
+            box-shadow: 0 0 20px rgba(33, 150, 243, 0.2);  /* Вернули синее свечение */
+        }
+
+        :root[data-style="playstation"][data-theme="dark"] .contact-info__item:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);  /* Вернули синее свечение */
+        }
+
+        /* PlayStation - Light theme */
+        :root[data-style="playstation"][data-theme="light"] body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            text-transform: uppercase;
+            position: relative;
+            background-image: 
+                linear-gradient(0deg, rgba(255,255,255,0.95) 0%, rgba(240,240,240,0.5) 100%),
+                repeating-linear-gradient(45deg, 
+                    rgba(33, 150, 243, 0.15) 0px,  /* Увеличили непрозрачность с 0.05 до 0.15 */
+                    rgba(33, 150, 243, 0.15) 2px,  /* Увеличили непрозрачность с 0.05 до 0.15 */
+                    transparent 2px,
+                    transparent 20px
+                );
+        }
+
+        /* Обновляем переменные для светлой темы */
+        :root[data-style="playstation"][data-theme="light"] {
+            --primary-color: #ffffff;
+            --secondary-color: #2196f3;
+            --text-color: #000000;
+            --background-color: #f8f9fa;
+            --card-background: rgba(255, 255, 255, 0.95);
+            --hover-color: #29b6f6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --cube-color: rgba(33, 150, 243, 0.15);  /* Увеличили непрозрачность с 0.05 до 0.15 */
+        }
+
+        /* Остальные стили остаются без изменений */
+        :root[data-style="playstation"][data-theme="light"] .project-card {
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        :root[data-style="playstation"][data-theme="light"] .project-card:hover {
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.15);
+        }
+
+        :root[data-style="playstation"][data-theme="light"] .contact-info__item {
+            background-color: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        :root[data-style="playstation"][data-theme="light"] .contact-info__item:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
+        }
+
+        /* PlayStation - Gray theme */
+        :root[data-style="playstation"][data-theme="gray"] {
+            --primary-color: #e0e0e0;
+            --secondary-color: #2196f3;
+            --text-color: #000000;        /* Сделали полностью чёрным (было #1a1a1a) */
+            --background-color: #9e9e9e;
+            --card-background: rgba(255, 255, 255, 0.1);
+            --hover-color: #29b6f6;
+            --border-color: rgba(0, 0, 0, 0.15);
+            --cube-color: rgba(33, 150, 243, 0.12);
+        }
+
+        /* Обновляем стили для использования переменных */
+        :root[data-style="playstation"] body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            text-transform: uppercase;
+            position: relative;
+            background-image: 
+                linear-gradient(0deg, rgba(0,0,0,0.95) 0%, rgba(26,26,26,0.5) 100%),
+                repeating-linear-gradient(45deg, 
+                    var(--cube-color) 0px,
+                    var(--cube-color) 2px,
+                    transparent 2px,
+                    transparent 20px
+                );
+        }
+
+        :root[data-style="playstation"] body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                /* Куб 1 - очень большой */
+                linear-gradient(45deg, transparent 0%, transparent 49%, var(--cube-color) 49%, var(--cube-color) 51%, transparent 51%),
+                linear-gradient(-45deg, transparent 0%, transparent 49%, var(--cube-color) 49%, var(--cube-color) 51%, transparent 51%),
+                /* Куб 2 - большой */
+                linear-gradient(45deg, transparent 10%, transparent 49%, var(--cube-color) 49%, var(--cube-color) 51%, transparent 51%),
+                linear-gradient(-45deg, transparent 10%, transparent 49%, var(--cube-color) 49%, var(--cube-color) 51%, transparent 51%),
+                /* Куб 3 - средний */
+                linear-gradient(45deg, transparent 20%, transparent 59%, var(--cube-color) 59%, var(--cube-color) 61%, transparent 61%),
+                linear-gradient(-45deg, transparent 20%, transparent 59%, var(--cube-color) 59%, var(--cube-color) 61%, transparent 61%),
+                /* Куб 4 - маленький */
+                linear-gradient(45deg, transparent 30%, transparent 69%, var(--cube-color) 69%, var(--cube-color) 71%, transparent 71%),
+                linear-gradient(-45deg, transparent 30%, transparent 69%, var(--cube-color) 69%, var(--cube-color) 71%, transparent 71%),
+                /* Куб 5 - очень маленький */
+                linear-gradient(45deg, transparent 40%, transparent 79%, var(--cube-color) 79%, var(--cube-color) 81%, transparent 81%),
+                linear-gradient(-45deg, transparent 40%, transparent 79%, var(--cube-color) 79%, var(--cube-color) 81%, transparent 81%);
+            background-size: 
+                500px 500px,
+                500px 500px,
+                400px 400px,
+                400px 400px,
+                300px 300px,
+                300px 300px,
+                200px 200px,
+                200px 200px,
+                100px 100px,
+                100px 100px;
+            background-position:
+                10% 90%,
+                10% 90%,
+                30% 70%,
+                30% 70%,
+                60% 30%,
+                60% 30%,
+                80% 60%,
+                80% 60%,
+                90% 20%,
+                90% 20%;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Добавляем базовый градиент */
+        :root[data-style="playstation"] body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, rgba(0,0,0,0.95) 0%, rgba(26,26,26,0.5) 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        :root[data-style="playstation"] .header {
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative; /* Для позиционирования псевдоэлемента */
+        }
+
+        :root[data-style="playstation"] .header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--secondary-color),
+                transparent
+            );
+        }
+
+        :root[data-style="playstation"] .header__title::after,
+        :root[data-style="playstation"] .header__title::before,
+        :root[data-style="playstation"] .header__subtitle::after,
+        :root[data-style="playstation"] .header__subtitle::before {
+            display: none; /* Отключаем все псевдоэлементы, создающие глитч-эффект */
+        }
+
+        :root[data-style="playstation"] .header__title,
+        :root[data-style="playstation"] .header__subtitle {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            text-shadow: 2px 2px 4px rgba(33, 150, 243, 0.3);
+            font-weight: normal;
+            display: block;
+            margin-bottom: 1rem;
+            position: static;
+            overflow: visible;
+        }
+
+        /* PlayStation-specific стили с повышенной специфичностью */
+        :root[data-style="playstation"] .header__title {
+            font-family: 'Press Start 2P', system-ui !important; /* Повышаем приоритет */
+            font-weight: normal; /* Сбрасываем жирность */
+            letter-spacing: normal; /* Сбрасываем межбуквенное расстояние */
+        }
+
+        :root[data-style="playstation"] .menu-item {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+        }
+
+        :root[data-style="playstation"] .menu-item:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);
+        }
+
+        :root[data-style="playstation"] .project-card {
+            border: 1px solid var(--border-color);
+            background-color: var(--card-background);
+            position: relative; /* Добавляем для правильного позиционирования псевдоэлемента */
+            overflow: hidden; /* Добавляем для ограничения градиента */
+        }
+
+        :root[data-style="playstation"] .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(33, 150, 243, 0.2);
+        }
+
+        :root[data-style="playstation"] .project-card__title {
+            font-family: 'Press Start 2P', system-ui !important;
+            color: var(--secondary-color);
+            text-shadow: 2px 2px 4px rgba(33, 150, 243, 0.3);
+            font-weight: normal;
+            letter-spacing: normal;
+        }
+
+        :root[data-style="playstation"] .contact-info__item:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);
+        }
+
+        /* PlayStation-specific стили */
+        :root[data-style="playstation"] .contact-details {
+            text-align: center; /* Центрируем текст */
+            margin-bottom: 2rem;
+            font-family: 'Press Start 2P', system-ui;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+
+        :root[data-style="playstation"] .contact-details p {
+            margin: 0.5rem 0;
+        }
+
+        :root[data-style="playstation"] .contact-details a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        :root[data-style="playstation"] .contact-details a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* PlayStation-specific стили с повышенной специфичностью */
+        :root[data-style="playstation"] .header__title,
+        :root[data-style="playstation"] .project-card__title {
+            font-family: 'Press Start 2P', system-ui !important;
+            font-weight: normal;
+            letter-spacing: normal;
+        }
+
+        /* PlayStation-specific стили */
+        :root[data-style="playstation"] .project-card::before {
+            display: none; /* Отключаем градиент */
+        }
+
+        /* Удаляем все определения для cyber стиля */
+        :root[data-style="cyber"][data-theme="dark"],
+        :root[data-style="cyber"][data-theme="light"],
+        :root[data-style="cyber"][data-theme="gray"],
+        :root[data-style="cyber"] body,
+        :root[data-style="cyber"] .project-card,
+        :root[data-style="cyber"] .project-card::before,
+        :root[data-style="cyber"] .project-card:hover::before,
+        :root[data-style="cyber"] .project-card__title,
+        html body[data-style="cyber"] .header__title,
+        html body[data-style="cyber"] .header__subtitle,
+        html body[data-style="cyber"] .project-card__title,
+        html body[data-style="cyber"] [class*="header__"],
+        html body[data-style="cyber"] [class*="project-card__"],
+        html body[data-style="cyber"] .header__title::before,
+        html body[data-style="cyber"] .header__title::after,
+        html body[data-style="cyber"] .header__subtitle::before,
+        html body[data-style="cyber"] .header__subtitle::after {
+            /* Сбрасываем все стили */
+            all: unset;
+        }
+
+        /* Также удаляем определение шрифта */
+        @font-face {
+            font-family: 'SDGlitch';
+            src: url('SDGlitch_Demo.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Стили для заголовков в стиле dossier */
+        :root[data-style="dossier"] .header__title,
+        :root[data-style="dossier"] .header__subtitle {
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            letter-spacing: 3px;
+            animation: revealText 4s linear forwards;
+        }
+
+        :root[data-style="dossier"] .header__subtitle {
+            display: block;
+            margin-top: 1rem;
+        }
+
+        /* Эффект появления с помехами */
+        :root[data-style="dossier"] .header__title::after,
+        :root[data-style="dossier"] .header__subtitle::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-color);
+            animation: glitchEffect 4s linear forwards;
+            animation-iteration-count: 1;
+            opacity: 1;
+        }
+
+        @keyframes revealText {
+            0% { 
+                clip-path: inset(0 100% 0 0);
+            }
+            70% { 
+                clip-path: inset(0 0 0 0);
+            }
+            100% { 
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        @keyframes glitchEffect {
+            0% { 
+                clip-path: inset(100% 0 0 0);
+                transform: translate(0);
+                opacity: 1;
+            }
+            /* Первое появление с помехами */
+            65% { 
+                clip-path: inset(0 0 0 0);
+                transform: translate(0);
+                opacity: 1;
+            }
+            /* Первая помеха */
+            70% { 
+                clip-path: inset(20% 0 20% 0);
+                transform: translate(-2px);
+                opacity: 1;
+            }
+            72% { 
+                clip-path: inset(0 0 0 0);
+                transform: translate(2px);
+                opacity: 1;
+            }
+            /* Вторая помеха */
+            80% { 
+                clip-path: inset(30% 0 30% 0);
+                transform: translate(2px);
+                opacity: 1;
+            }
+            82% { 
+                clip-path: inset(0 0 0 0);
+                transform: translate(-2px);
+                opacity: 1;
+            }
+            /* Третья помеха */
+            90% { 
+                clip-path: inset(10% 0 40% 0);
+                transform: translate(-2px);
+                opacity: 1;
+            }
+            92% { 
+                clip-path: inset(0 0 0 0);
+                transform: translate(2px);
+                opacity: 1;
+            }
+            99% { 
+                opacity: 1;
+            }
+            100% { 
+                clip-path: inset(0 0 0 0);
+                transform: translate(0);
+                opacity: 0;
+            }
+        }
+
+        /* Добавляем стили для разделителя после проектов */
+        :root[data-style="playstation"] .projects {
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        :root[data-style="playstation"] .projects::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--secondary-color),
+                transparent
+            );
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .style-select,
+        .theme-toggle {
+            padding: 5px 10px;
+            background: var(--card-background);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            font-family: inherit;
+            width: 160px;  /* Меняем с 120px на 160px */
+        }
+
+        .style-select:hover,
+        .theme-toggle:hover {
+            border-color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button class="theme-toggle" onclick="toggleStyle()">Toggle Style</button>
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+    </div>
+    <div class="container">
+        <header class="header">
+            <h1 class="header__title" data-text="Bogdan Shcherbak">Bogdan Shcherbak</h1>
+            <p class="header__subtitle" data-text="Technical Artist">Technical Artist</p>
+            <div class="contact-details">
+                <p>+46 76-229 36 98 • bogdan.shcherbak92@gmail.com • t.me/Shcherbak_Bogdan • linkedin.com/in/bogdan-shcherbak</p>
+            </div>
+        </header>
+
+        <section class="about-me">
+            <div class="project-card">
+                <h2 class="project-card__title">About Me</h2>
+                <div class="project-card__content">
+                    <p class="project-card__description" style="font-size: 1.2em; margin-bottom: 1.5rem;">
+                        Hey! I'm a Technical Artist with 6+ years of experience elevating AAA game performance and visuals. I bridge art and engineering through optimized workflows, profiling, and procedural tools—so teams can focus on creating immersive experiences.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="projects">
+            <div class="project-card">
+                <h2 class="project-card__title">Warhammer 40,000: Space Marine 2</h2>
+                <div class="project-card__video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/kuMuO1KcaIU" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="project-card__description">
+                    Prepared game assets and managed LOD creation, optimizing performance across multiple platforms without sacrificing visual quality. Conducted in-depth profiling of levels to identify bottlenecks, ensuring stable frame rates and a smoother gameplay experience.
+                </p>
+            </div>
+
+            <div class="project-card">
+                <h2 class="project-card__title">The Witcher 3: Wild Hunt - Next-gen</h2>
+                <div class="project-card__video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/ZtTe_RIFTjM" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="project-card__description">
+                    Optimized and enhanced character textures to next-gen standards, refining core models for a higher visual fidelity. Removed visual artifacts and oversaw vegetation setups, ensuring seamless integration and an elevated overall experience.
+                </p>
+            </div>
+
+            <div class="project-card">
+                <h2 class="project-card__title">RoadCraft</h2>
+                <div class="project-card__video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/Ajbx_1Sk1Wo" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="project-card__description">
+                    Optimized and integrated game assets—particularly vegetation—into our in-house engine, ensuring consistent performance. Streamlined LOD, physics, and collision setups, including realistic wind response for foliage, to maintain stable frame rates and elevate the overall player experience.
+                </p>
+            </div>
+
+            <div class="project-card">
+                <h2 class="project-card__title">John Carpenter's Toxic Commando</h2>
+                <div class="project-card__video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/kUgeWslPjps" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="project-card__description">
+                    Overhauled and integrated game assets, including vegetation, into our internal engine, consistently ensuring stable frame rates across diverse projects. Streamlined collision, LOD, and physics parameters with realistic wind effects, delivering both high performance and an immersive player experience.
+                </p>
+            </div>
+
+            <div class="project-card">
+                <h2 class="project-card__title">Lab Projects</h2>
+                <div class="project-card__video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/TGNGhyIZJHE" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="project-card__description">
+                    During my time at the university lab, I tackled a wide spectrum of creative and technical tasks, ranging from 3D modeling for architectural showcases to crafting real-time VFX for large-scale events. This hands-on environment pushed me to adapt quickly and find innovative solutions across diverse projects.
+                </p>
+            </div>
+
+            <div class="project-card">
+                <h2 class="project-card__title">Shadow Samurai TAU Tracker Demo (CES 2019)</h2>
+                <div class="project-card__video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/CXZwbi0lfrI" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="project-card__description">
+                    CES 2019 gameplay demo for Shadow Samurai—a direct hand-interaction game powered by TAU Tracker motion-capture gloves. I built the environment assets and assembled the entire scene.
+                </p>
+            </div>
+
+            <div class="project-card">
+                <h2 class="project-card__title">Broadcast AR</h2>
+                <div class="project-card__video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/9vXcJTetZis" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="project-card__description">
+                    "Broadcast AR" is an augmented reality solution for both live stadium events and TV broadcasts. I created visual effects, built scenario flows, and set the overall visual style, ensuring an immersive experience for fans and viewers alike.
+                </p>
+            </div>
+        </section>
+
+        <!-- Добавляем новый текстовый блок после горизонтальной линии -->
+        <div style="margin: 4rem 0 4rem 0;">
+            <p style="color: var(--text-color); line-height: 1.6; text-align: justify;">
+                Bridge art and engineering. Streamline pipelines for AAA games. Optimize massive 3D assets. Teach cutting-edge technologies. Dream of fully procedural worlds. In the immediate future.
+            </p>
+        </div>
+
+        <!-- Общий контейнер -->
+        <div style="margin-bottom: 20vh; margin-top: 15vh;">
+            <!-- Заголовки на одном уровне -->
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <div style="flex: 1;"></div>
+                <h2 style="font-size: 1.5rem; color: var(--text-color); margin: 0;">Let's stay in touch</h2>
+            </div>
+
+            <!-- Контент в две колонки -->
+            <div style="display: flex; justify-content: space-between; gap: 20px; align-items: center;">
+                <!-- Левая колонка с текстом -->
+                <div style="flex: 1;">
+                    <p style="margin: 0; width: 70%; text-align: justify;">
+                        Got an exciting project or a complex challenge on your hands? Let's join forces to bring it to life. I'm always open to fresh ideas and ready to push the boundaries of what's possible in game technology. Reach out, and together we'll create something truly extraordinary!
+                    </p>
+                </div>
+
+                <!-- Правая колонка с контактами -->
+                <div class="contact-info" style="flex: 1;">
+                    <div class="contact-info__item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1 .3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1zM19 12h2c0-4.9-4-9-9-9v2c3.9 0 7 3.1 7 7zm-4 0h2c0-2.8-2.2-5-5-5v2c1.7 0 3 1.3 3 3z"/>
+                        </svg>
+                        <a href="tel:+46762293698">+46 76-229 36 98</a>
+                    </div>
+                    <div class="contact-info__item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.52-.52-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+                        </svg>
+                        <a href="https://t.me/Shcherbak_Bogdan" target="_blank">t.me/Shcherbak_Bogdan</a>
+                    </div>
+                    <div class="contact-info__item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                        <a href="mailto:bogdan.shcherbak92@gmail.com">bogdan.shcherbak92@gmail.com</a>
+                    </div>
+                    <div class="contact-info__item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                        </svg>
+                        <a href="https://linkedin.com/in/bogdan-shcherbak" target="_blank">linkedin.com/in/bogdan-shcherbak</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Обновляем функцию переключения темы
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Загружаем сохраненные настройки при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const savedStyle = localStorage.getItem('style') || 'playstation';
+            
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.documentElement.setAttribute('data-style', savedStyle);
+        });
+
+        // Возвращаем предыдущую версию обработчика
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / card.clientWidth) * 100;
+                const y = ((e.clientY - rect.top) / card.clientHeight) * 100;
+                card.style.setProperty('--x', `${x}%`);
+                card.style.setProperty('--y', `${y}%`);
+            });
+        });
+
+        function scrollToSection(sectionId) {
+            const section = document.querySelector(`.${sectionId}`);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Обновляем функцию смены стиля
+        function toggleStyle() {
+            const currentStyle = document.documentElement.getAttribute('data-style');
+            const newStyle = currentStyle === 'playstation' ? 'dossier' : 'playstation';
+            
+            document.documentElement.setAttribute('data-style', newStyle);
+            localStorage.setItem('style', newStyle);
+        }
+    </script>
+</body>
+</html>
