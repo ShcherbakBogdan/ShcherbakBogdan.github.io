@@ -163,6 +163,51 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Обновляем стили для основного текста */
+        p, .project-card__description {
+            font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 1.25rem;
+            line-height: 1.7;
+            text-transform: none;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        /* Специальные стили для описания в About Me */
+        .about-me .project-card__description {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 1; /* Полная непрозрачность для важного текста */
+        }
+
+        /* Стили для контактной информации */
+        .contact-info__item a {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1rem;
+            letter-spacing: 0;
+            opacity: 0.95;
+        }
+
+        /* Стили для текста в нижней секции */
+        div[style*="margin: 4rem 0"] p {
+            font-size: 1.375rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        /* Стили для текста в секции "Let's stay in touch" */
+        div[style*="margin-bottom: 20vh"] p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            text-transform: none;
+        }
+
+        /* Оставляем Roboto Mono только для технических элементов */
+        .contact-details, .contact-info {
             font-family: 'Roboto Mono', monospace;
         }
 
@@ -436,8 +481,8 @@
         .contact-info__item a {
             color: var(--text-color);
             text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
+            font-size: 1.125rem;
+            letter-spacing: 0.05em;
         }
 
         .contact-info__item svg {
@@ -448,16 +493,96 @@
         }
 
         @media (max-width: 768px) {
+            /* Заголовки */
             .header__title {
-                font-size: 1.5rem;
+                font-size: 2.5rem;
+                letter-spacing: 4px;
             }
 
+            .header__subtitle {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+
+            /* Контейнер */
             .container {
-                padding: 0 10px;
+                padding: 1rem;
+            }
+
+            /* Карточки проектов */
+            .project-card {
+                padding: 1.5rem;
             }
 
             .project-card__title {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            /* Текст */
+            p, .project-card__description {
+                font-size: 1.125rem;
+            }
+
+            .about-me .project-card__description {
+                font-size: 1.25rem;
+            }
+
+            /* Контакты и нижняя секция */
+            div[style*="margin-bottom: 20vh"] {
+                margin-bottom: 10vh !important;
+            }
+
+            /* Переворачиваем колонки в мобильной версии */
+            div[style*="display: flex; justify-content: space-between; gap:"] {
+                flex-direction: column-reverse;
+                gap: 2rem !important;
+            }
+
+            /* Контакты */
+            .contact-info {
+                width: 100%;
+            }
+
+            .contact-info__item {
+                padding: 0.75rem;
+            }
+
+            .contact-info__item a {
+                font-size: 0.9rem;
+            }
+
+            /* Убираем ненужные отступы */
+            div[style*="padding-right: 2rem"] {
+                padding-right: 0 !important;
+            }
+
+            /* Контролы темы и стиля */
+            .controls {
+                position: static;
+                margin: 1rem auto;
+                justify-content: center;
+                padding: 0 1rem;
+            }
+
+            .theme-toggle, .style-select {
+                width: auto;
+                padding: 8px 12px;
+            }
+        }
+
+        /* Дополнительные стили для очень маленьких экранов */
+        @media (max-width: 480px) {
+            .header__title {
+                font-size: 2rem;
+            }
+
+            .header__subtitle {
+                font-size: 1.5rem;
+            }
+
+            .contact-details p {
+                font-size: 0.8rem;
             }
         }
 
@@ -1180,6 +1305,45 @@
             scrollbar-width: thin;
             scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
         }
+
+        /* PlayStation-specific текстовые стили */
+        :root[data-style="playstation"] p,
+        :root[data-style="playstation"] .project-card__description {
+            font-family: 'TeX Gyre Adventor', 'Roboto', system-ui;
+            letter-spacing: 0.02em;
+        }
+
+        :root[data-style="playstation"] .about-me .project-card__description {
+            font-family: 'TeX Gyre Adventor', 'Roboto', system-ui;
+            font-size: 1.5rem;
+            line-height: 1.8;
+        }
+
+        :root[data-style="playstation"] .contact-info__item a {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1rem;
+            letter-spacing: 0;
+            line-height: 1.4;
+        }
+
+        /* Dossier-specific текстовые стили */
+        :root[data-style="dossier"] p,
+        :root[data-style="dossier"] .project-card__description {
+            font-family: 'Roboto Mono', monospace;
+            letter-spacing: 0.03em;
+        }
+
+        :root[data-style="dossier"] .about-me .project-card__description {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        :root[data-style="dossier"] .contact-info__item a {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.125rem;
+            letter-spacing: 0.05em;
+        }
     </style>
 </head>
 <body>
@@ -1330,12 +1494,11 @@
             </div>
 
             <!-- Контент в две колонки -->
-            <div style="display: flex; justify-content: space-between; gap: 20px; align-items: center;">
+            <div style="display: flex; justify-content: space-between; gap: 150px; align-items: center;">
                 <!-- Левая колонка с текстом -->
-                <div style="flex: 1;">
-                    <p style="margin: 0; width: 70%; text-align: justify;">
-                        Got an exciting project or a complex challenge on your hands? Let's join forces to bring it to life.<br><br>
-                        I'm always open to fresh ideas and ready to push the boundaries of what's possible in game technology. Reach out, and together we'll create something truly extraordinary!
+                <div style="flex: 1; display: flex; align-items: center; min-height: 100%;">
+                    <p style="margin: 0; text-align: justify; padding-right: 2rem; transform: translateY(8px);">
+                        Got an exciting project or a complex challenge on your hands? Let's join forces to bring it to life.<br><br>I'm always open to fresh ideas and ready to push the boundaries of what's possible in game technology. Reach out, and together we'll create something truly extraordinary!
                     </p>
                 </div>
 
