@@ -242,22 +242,59 @@
             margin: 0 auto;
             padding: 2rem 20px;
             position: relative;
+            transform: none;  /* Убедимся, что нет трансформации */
         }
 
+        /* Сбрасываем все возможные отрицательные margin */
+        .header,
+        .header__title,
+        .header__subtitle,
+        .about-me,
+        .project-card,
+        .project-card__title,
+        .project-card__description {
+            margin: 0;  /* Сначала сбросим все margin */
+        }
+
+        /* Теперь явно зададим нужные положительные margin */
+        .header {
+            margin-bottom: 6rem;
+        }
+
+        .header__title {
+            margin-bottom: 1rem;
+        }
+
+        .header__subtitle {
+            margin-bottom: 2.5rem;
+        }
+
+        .project-card {
+            margin-bottom: 2rem;
+        }
+
+        .project-card__title {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Обновляем стили для header */
         .header {
             text-align: left;
-            margin-bottom: 3rem;
-            padding: 2rem 0;
-            border-bottom: 2px solid var(--secondary-color);
+            padding: 1rem 0;        /* Уменьшаем padding сверху и снизу */
+            margin-top: 1rem;       /* Добавляем небольшой отступ сверху */
             position: relative;
-            height: 320px;  /* Фиксированная высота вместо min-height */
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;  /* Выравнивание содержимого по верху */
+            justify-content: flex-start;
+            margin-bottom: 6rem;
         }
 
-        .header::before {
-            display: none;
+        /* Медиа-запрос для мобильных устройств */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.5rem 0;  /* Еще меньше padding на мобильных */
+                margin-top: 0.5rem; /* Меньше margin на мобильных */
+            }
         }
 
         .header__title,
@@ -265,17 +302,56 @@
             overflow: hidden;
             position: relative;
             margin-bottom: 1rem;  /* Базовый отступ */
+            transform: none;  /* Убедимся, что нет трансформации */
         }
 
+        /* Обновляем стили для заголовка */
         .header__title {
-            font-size: 4rem;
+            font-size: clamp(2rem, 8vw, 3.5rem);  /* Адаптивный размер шрифта */
             margin-bottom: 1rem;
             color: var(--text-color);
-            letter-spacing: 8px;
+            letter-spacing: clamp(1px, 1vw, 4px);  /* Адаптивный межбуквенный интервал */
             display: inline-block;
+            width: 100%;
+            white-space: normal;
+            word-break: keep-all;
+            text-align: center;
         }
 
-        .header__title::after {
+        /* Медиа-запросы только для экстремальных случаев */
+        @media (max-width: 576px) {
+            .header__title {
+                font-size: clamp(1.5rem, 6vw, 2rem);  /* Меньший размер для очень маленьких экранов */
+                letter-spacing: 1px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header__title {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header__title {
+                font-size: 3rem;
+            }
+        }
+
+        /* Обновляем стили для подзаголовка */
+        .header__subtitle {
+            font-size: 3.5rem;      /* Уменьшаем для соответствия */
+            margin-bottom: 2.5rem;
+            color: var(--text-color);
+            letter-spacing: 4px;    /* Уменьшаем для соответствия */
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* Ограничиваем область действия анимаций */
+        .header__title::after,
+        .header__subtitle::after {
             content: attr(data-text);
             position: absolute;
             left: 2px;
@@ -287,15 +363,8 @@
             clip: rect(0, 900px, 0, 0);
             animation: noise-anim-1 2s infinite linear alternate-reverse;
             opacity: 0.8;
-            text-shadow: -3px 0 var(--glitch-shadow);
-        }
-
-        .header__subtitle {
-            font-size: 4rem;
-            margin-bottom: 2.5rem;  /* Увеличенный отступ после Technical Artist */
-            color: var(--text-color);
-            letter-spacing: 8px;
-            display: inline-block;
+            pointer-events: none;  /* Убеждаемся, что анимация не влияет на взаимодействие */
+            z-index: 1;  /* Контролируем слой отображения */
         }
 
         .header__subtitle::after {
@@ -405,6 +474,10 @@
             transition: all 0.3s ease;
         }
 
+        .project-card:hover {
+            transform: translateY(-5px);  /* Это не должно влиять на начальное положение */
+        }
+
         .project-card::before {
             content: '';
             position: absolute;
@@ -496,12 +569,12 @@
             /* Заголовки */
             .header__title {
                 font-size: 2.5rem;
-                letter-spacing: 4px;
+                letter-spacing: 2px;
             }
 
             .header__subtitle {
                 font-size: 2rem;
-                letter-spacing: 4px;
+                letter-spacing: 2px;
             }
 
             /* Контейнер */
@@ -559,15 +632,42 @@
 
             /* Контролы темы и стиля */
             .controls {
-                position: static;
-                margin: 1rem auto;
+                position: relative;     /* Изменили с fixed на relative */
+                display: flex;
+                flex-direction: row;
                 justify-content: center;
-                padding: 0 1rem;
+                align-items: center;
+                width: 100vw;
+                padding: 0.5rem;
+                margin: 0 calc(-1 * (100vw - 100%) / 2);
+                background: transparent;
+                gap: 8px;
+                left: 0;
             }
 
-            .theme-toggle, .style-select {
-                width: auto;
-                padding: 8px 12px;
+            .theme-toggle,
+            .style-select {
+                font-size: 0.75rem;
+                padding: 6px 8px;
+                width: 120px;
+                min-width: auto;
+                margin: 0;
+            }
+
+            .header {
+                margin-top: 0.5rem;    /* Вернули обычный отступ */
+            }
+
+            .container {
+                padding: 1rem 0.5rem;
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .header::after {
+                bottom: -1px;  /* Немного корректируем позицию для мобильных */
+                height: 1px;   /* Уменьшаем толщину линии */
             }
         }
 
@@ -600,8 +700,8 @@
 
         .contact-details {
             text-align: center;
-            margin-bottom: 2rem;
-            margin-top: 0;  /* Убираем отступ сверху */
+            margin-bottom: 0;     /* Убираем нижний отступ */
+            margin-top: 0;        /* Убираем верхний отступ */
             font-family: 'Press Start 2P', system-ui;
             font-size: 1rem;
             line-height: 1.8;
@@ -609,7 +709,7 @@
         }
 
         .contact-details p {
-            margin: 0.5rem 0;
+            margin: 0.5rem 0;    /* Минимальный отступ для параграфа */
         }
 
         .contact-details a {
@@ -965,9 +1065,12 @@
 
         :root[data-style="playstation"] .header {
             text-align: center;
-            height: 320px;  /* Та же фиксированная высота */
+            height: auto;  /* Убираем фиксированную высоту */
+            min-height: auto; /* Убираем минимальную высоту */
             border-bottom: 1px solid var(--border-color);
             position: relative;
+            margin-bottom: 6rem; /* Увеличиваем отступ */
+            padding: 2rem 0;
         }
 
         :root[data-style="playstation"] .header::after {
@@ -1343,6 +1446,63 @@
             font-family: 'Roboto Mono', monospace;
             font-size: 1.125rem;
             letter-spacing: 0.05em;
+        }
+
+        /* Обновляем стили для контролов на мобильных устройствах */
+        @media (max-width: 768px) {
+            .controls {
+                position: relative;     /* Изменяем с fixed на relative */
+                top: 0;
+                right: 0;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                padding: 12px;         /* Увеличиваем padding для лучшего нажатия */
+                background: transparent;
+                gap: 8px;
+            }
+
+            .theme-toggle,
+            .style-select {
+                height: 44px;          /* Минимальная высота для удобного нажатия */
+                font-size: 0.875rem;   /* Немного уменьшаем размер шрифта */
+                padding: 8px 12px;
+                width: 140px;          /* Фиксированная ширина */
+                backdrop-filter: blur(5px);
+                background-color: rgba(var(--card-background), 0.8);  /* Полупрозрачный фон */
+                transition: all 0.2s ease;  /* Плавная анимация для обратной связи */
+            }
+
+            .theme-toggle:active,
+            .style-select:active {
+                transform: scale(0.95);  /* Легкая анимация при нажатии */
+                background-color: var(--secondary-color);
+            }
+
+            /* Корректируем отступ для контента под кнопками */
+            .container {
+                padding-top: 0;
+            }
+        }
+
+        .about-me {
+            margin-top: 2rem;  /* Добавляем отступ сверху */
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Обновляем медиа-запрос для мобильных устройств */
+        @media (max-width: 768px) {
+            .header {
+                margin-bottom: 4rem;
+                height: auto;
+            }
+            
+            .about-me {
+                margin-top: 1rem;
+            }
         }
     </style>
 </head>
