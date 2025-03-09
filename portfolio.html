@@ -342,6 +342,17 @@
             }
         }
 
+        .email {
+               display: flex;
+               flex-wrap: wrap;
+        }
+
+        @media (min-width: 768px) {
+            .email {
+               flex-wrap: nowrap;
+            }
+        }
+
         /* Обновляем стили для подзаголовка */
         .header__subtitle {
             font-size: 3.5rem;      /* Уменьшаем для соответствия */
@@ -536,26 +547,28 @@
 
         .contact-info {
             margin-top: 3rem;
+            color: var(--scrollbar-thumb);
         }
 
         .contact-info__item {
+            color: var(--scrollbar-thumb);
             display: flex;
             align-items: center;
-            gap: 1rem;
+            /* gap: 1rem; */
             margin-bottom: 1rem;
-            padding: 1rem;
+            padding: 0.75rem;
             background-color: var(--card-background);
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
         }
 
         .contact-info__item:hover {
-            background-color: var(--secondary-color);
+            background-color: var(--text-color);
             box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);
         }
 
         .contact-info__item a {
-            color: var(--text-color);
+            color: var(--scrollbar-thumb);
             text-decoration: none;
             font-size: 1.125rem;
             letter-spacing: 0.05em;
@@ -618,10 +631,6 @@
             /* Контакты */
             .contact-info {
                 width: 100%;
-            }
-
-            .contact-info__item {
-                padding: 0.75rem;
             }
 
             .contact-info__item a {
@@ -862,6 +871,8 @@
             border-color: var(--secondary-color);
         }
 
+
+
         /* Dossier - Dark theme */
         :root[data-style="dossier"][data-theme="dark"] {
             --primary-color: #1a1a1a;
@@ -916,6 +927,11 @@
         :root[data-style="playstation"][data-theme="dark"] .contact-info__item:hover {
             background-color: var(--secondary-color);
             box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);  /* Вернули синее свечение */
+            color: black;
+
+            a {
+                color: black;
+            }
         }
 
         /* PlayStation - Light theme */
@@ -970,7 +986,12 @@
 
         :root[data-style="playstation"][data-theme="light"] .contact-info__item:hover {
             background-color: var(--secondary-color);
+            color: white;
             box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
+
+            a {
+                color: white;
+            }
         }
 
         /* PlayStation - Gray theme */
@@ -1113,14 +1134,14 @@
         }
 
         
-        @media (min-width: var(--middle-phone-breakpoint)) {
+        @media (min-width: 412px) {
             :root[data-style="playstation"] .header__title,
             :root[data-style="playstation"] .header__subtitle {
                 font-size: 2.8rem;
             }
         }
 
-        @media (min-width: var(--large-phone-breakpoint)) {
+        @media (min-width: 768px) {
             :root[data-style="playstation"] .header__title,
             :root[data-style="playstation"] .header__subtitle {
                 font-size: 4rem;
@@ -1287,6 +1308,24 @@
             animation: glitchEffect 2s linear forwards;
             animation-iteration-count: 1;
             opacity: 1;
+        }
+
+        :root[data-style="dossier"] .contact-info__item:hover {
+            color: white;
+            background-color: var(--scrollbar-thumb);
+
+            a {
+                color: white;
+            }
+        }
+
+        :root[data-style="dossier"][data-theme="dark"] .contact-info__item:hover {
+            color: black;
+            background-color: var(--scrollbar-thumb);
+
+            a {
+                color: black;
+            }
         }
 
         @keyframes revealText {
@@ -1667,10 +1706,9 @@
         </div>
 
         <!-- Общий контейнер -->
-        <div style="margin-bottom: 20vh; margin-top: 15vh;">
+        <div style="margin-bottom: 20vh; margin-top: 1rem;">
             <!-- Заголовки на одном уровне -->
-            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                <div style="flex: 1;"></div>
+            <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
                 <h2 style="font-size: 1.5rem; color: var(--text-color); margin: 0;">Let's stay in touch</h2>
             </div>
 
@@ -1678,7 +1716,7 @@
             <div style="display: flex; justify-content: space-between; gap: 150px; align-items: center;">
                 <!-- Левая колонка с текстом -->
                 <div style="flex: 1; display: flex; align-items: center; min-height: 100%;">
-                    <p style="margin: 0; text-align: justify; padding-right: 2rem; transform: translateY(8px);">
+                    <p style="margin: 0; text-align: justify; transform: translateY(8px);">
                         Got an exciting project or a complex challenge on your hands? Let's join forces to bring it to life.<br><br>I'm always open to fresh ideas and ready to push the boundaries of what's possible in game technology. Reach out, and together we'll create something truly extraordinary!
                     </p>
                 </div>
@@ -1695,22 +1733,24 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l.002.001-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/>
                         </svg>
-                        <a href="https://t.me/Shcherbak_Bogdan" target="_blank">t.me/Shcherbak_Bogdan</a>
+                        <a href="https://t.me/Shcherbak_Bogdan" target="_blank">Telegram</a>
                     </div>
                     <div class="contact-info__item">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                         </svg>
-                        <a href="mailto:bogdan.shcherbak92@gmail.com">bogdan.shcherbak92@gmail.com</a>
+                        <a href="mailto:bogdan.shcherbak92@gmail.com" class="email"><div>bogdan.shcherbak92</div><div>@gmail.com</div></a>
                     </div>
                     <div class="contact-info__item">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
                         </svg>
-                        <a href="https://linkedin.com/in/bogdan-shcherbak" target="_blank">linkedin.com/in/bogdan-shcherbak</a>
+                        <a href="https://linkedin.com/in/bogdan-shcherbak" target="_blank">LinkedIn</a>
                     </div>
                 </div>
             </div>
+
+            <a href="./Bogdan_Shcherbak_TechArtist_CV.pdf" >Download CV</a>
         </div>
     </div>
 
